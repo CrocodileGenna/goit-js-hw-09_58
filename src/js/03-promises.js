@@ -19,6 +19,8 @@ function renderAwait(e) {
   let firstValuePlusStep = firstValue;
 
   for (let i = 1; i <= amountValue; i++) {
+    console.log(i);
+
     createPromise(i, firstValuePlusStep)
       .then(({ i, firstValuePlusStep }) => {
         Notiflix.Notify.success(
@@ -26,10 +28,8 @@ function renderAwait(e) {
         );
       })
       .catch(({ i, firstValuePlusStep }) => {
-        reject(
-          Notiflix.Notify.failure(
-            `❌ Rejected promise ${i} in ${firstValuePlusStep}ms`
-          )
+        Notiflix.Notify.failure(
+          `❌ Rejected promise ${i} in ${firstValuePlusStep}ms`
         );
       });
     firstValuePlusStep += stepValue;
@@ -43,10 +43,10 @@ function createPromise(position, delay) {
       console.log(delay, position);
       if (shouldResolve) {
         // Fulfill
-        respons({ position, delay });
+        respons(`✅ Fulfilled promise ${position} in ${delay}ms`);
       }
       // Reject
-      reject({ position, delay });
+      reject(`❌ Rejected promise ${position} in ${delay}ms`);
     }, delay);
   });
 }
